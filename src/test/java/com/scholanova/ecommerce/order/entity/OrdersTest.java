@@ -13,7 +13,10 @@ class OrdersTest {
     @Test
     public void checkout_ShouldSetTheDateAndTimeOfTodayInTheOrder(){
         //given
-        Orders order = new Orders();
+        Cart cart = new Cart();
+        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        Orders order = Orders.createOrder("fr542168", date, cart);
+        order.setId((long) 10);
         //when
         order.checkout();
         //then
@@ -22,11 +25,14 @@ class OrdersTest {
 
     @Test
     public void checkout_ShouldSetOrderStatusToPending(){
-        Orders order = new Orders();
+        Cart cart = new Cart();
+        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        Orders order = Orders.createOrder("fr542168", date, cart);
+        order.setId((long) 10);
         //when
         order.checkout();
         //then
-        assertThat(order.getStatus().equals(OrderStatus.PENDING));
+        assertThat(order.getStatus().equals(OrderStatus.CREATED));
     }
 
     @Test

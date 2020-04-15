@@ -32,12 +32,12 @@ public class Orders {
     public Orders() {
     }
 
-    public static void createOrder(String number, Date issueDate, Cart cart){
-//        Orders entity = new Orders();
-//        entity.number = number;
-//        entity.issueDate = issueDate;
-//        entity.cart = cart;
-//        return entity;
+    public static Orders createOrder(String number, Date issueDate, Cart cart){
+        Orders entity = new Orders();
+        entity.number = number;
+        entity.issueDate = issueDate;
+        entity.cart = cart;
+        return entity;
     }
 
     public void checkout(){
