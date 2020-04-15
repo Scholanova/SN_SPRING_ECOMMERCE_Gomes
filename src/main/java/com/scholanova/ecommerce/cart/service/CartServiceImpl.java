@@ -24,7 +24,13 @@ public class CartServiceImpl implements CartService{
     }
 
     @Override
-    public Cart changeProductQuantity(Cart cart, Long productId, int quantity) {
-        return cart.changeProductQuantity(cart.getCartItemByProductName(productRepository.findById(productId).get().getName()).getProduct(),quantity);
+    public Cart changeProductQuantity(Cart cart, Long productId, int quantity) throws CartException {
+        try {
+            Cart currentCart = cart.changeProductQuantity(cart.getCartItemByProductName(productRepository.findById(productId).get().getName()).getProduct(), quantity);
+            return currentCart;
+        }
+        catch (Exception e){
+            throw new CartException("Erreur lors de la modification de votre panier");
+        }
     }
 }
