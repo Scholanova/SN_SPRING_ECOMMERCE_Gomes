@@ -94,7 +94,11 @@ public class Orders {
 
     public Cart getCart() {return cart;}
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setCart(Cart cart) throws NotAllowedException {
+        if(this.getStatus().equals(OrderStatus.CLOSED)){
+            throw new NotAllowedException("Commande cloturé !");
+        }else{
+            this.cart = cart;
+        }
     }
 }

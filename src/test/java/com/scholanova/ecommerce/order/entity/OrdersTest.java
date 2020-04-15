@@ -74,7 +74,16 @@ class OrdersTest {
 
     @Test
     public void setCart_ShouldThrowNotAllowedExceptionIfStatusIsClosed(){
-
+        //given
+        Cart cart = new Cart();
+        cart.addProduct(new Product().create("Vélo","Rapide",150.0f,1.0f,"EUR"),1);
+        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        Orders order = Orders.createOrder("fr542168", date, cart);
+        order.setId((long) 10);
+        //when
+        order.setStatus(OrderStatus.CLOSED);
+        //then
+        assertThrows(NotAllowedException.class,() -> order.setCart(new Cart()));
     }
 
     @Test
