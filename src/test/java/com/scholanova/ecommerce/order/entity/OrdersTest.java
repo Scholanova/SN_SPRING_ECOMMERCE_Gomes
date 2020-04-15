@@ -28,7 +28,7 @@ class OrdersTest {
         //when
         order.checkout();
         //then
-        assertThat(order.getIssueDate().equals(Calendar.getInstance().getTime().getTime()));
+        assertThat(order.getIssueDate()).isEqualTo(date);
     }
 
     @Test
@@ -42,7 +42,7 @@ class OrdersTest {
         //when
         order.checkout();
         //then
-        assertThat(order.getStatus().equals(OrderStatus.CREATED));
+        assertThat(order.getStatus()).isEqualTo(OrderStatus.PENDING);
     }
 
     @Test
