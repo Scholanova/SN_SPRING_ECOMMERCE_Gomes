@@ -29,7 +29,7 @@ class CartServiceImplTest {
     }*/
 
     @Test
-    public void addProductToCart_ShouldAddTheProductToTheCart() {
+    public void addProductToCart_ShouldAddTheProductToTheCart() throws CartException {
         //given
         Cart cart = new Cart();
         Product product = Product.create("tested", "tested", 10.5f, 0.1f, "EUR");
