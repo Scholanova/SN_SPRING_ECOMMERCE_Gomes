@@ -2,6 +2,7 @@ package com.scholanova.ecommerce.order.entity;
 
 import com.scholanova.ecommerce.cart.entity.Cart;
 import com.scholanova.ecommerce.order.exception.IllegalArgException;
+import com.scholanova.ecommerce.order.exception.NotAllowedException;
 import com.scholanova.ecommerce.order.exception.OrderException;
 import com.scholanova.ecommerce.product.entity.Product;
 import org.junit.jupiter.api.Disabled;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrdersTest {
 
     @Test
-    public void checkout_ShouldSetTheDateAndTimeOfTodayInTheOrder() throws OrderException, IllegalArgException {
+    public void checkout_ShouldSetTheDateAndTimeOfTodayInTheOrder() throws NotAllowedException, IllegalArgException {
         //given
         Cart cart = new Cart();
         cart.addProduct(new Product().create("Vélo","Rapide",150.0f,1.0f,"EUR"),1);
@@ -31,7 +32,7 @@ class OrdersTest {
     }
 
     @Test
-    public void checkout_ShouldSetOrderStatusToPending() throws OrderException, IllegalArgException {
+    public void checkout_ShouldSetOrderStatusToPending() throws NotAllowedException, IllegalArgException {
         //given
         Cart cart = new Cart();
         cart.addProduct(new Product().create("Vélo","Rapide",150.0f,1.0f,"EUR"),1);
@@ -55,7 +56,7 @@ class OrdersTest {
         //when
         order.setStatus(OrderStatus.CLOSED);
         //then
-        assertThrows(OrderException.class,() -> order.checkout());
+        assertThrows(NotAllowedException.class,() -> order.checkout());
     }
 
     @Test

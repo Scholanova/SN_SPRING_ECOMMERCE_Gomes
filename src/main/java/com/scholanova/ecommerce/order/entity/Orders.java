@@ -3,6 +3,7 @@ package com.scholanova.ecommerce.order.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scholanova.ecommerce.cart.entity.Cart;
 import com.scholanova.ecommerce.order.exception.IllegalArgException;
+import com.scholanova.ecommerce.order.exception.NotAllowedException;
 import com.scholanova.ecommerce.order.exception.OrderException;
 import com.sun.xml.bind.v2.TODO;
 
@@ -42,12 +43,12 @@ public class Orders {
         return entity;
     }
 
-    public void checkout() throws OrderException, IllegalArgException {
+    public void checkout() throws NotAllowedException, IllegalArgException {
         if(this.getCart().getCartItems().size()==0){
             throw new IllegalArgException("Panier vide !");
         }
         if(this.getStatus().equals(OrderStatus.CLOSED)){
-            throw new OrderException("Commande cloturé !");
+            throw new NotAllowedException("Commande cloturé !");
         }else{
             this.setStatus(OrderStatus.PENDING);
             this.setIssueDate(new Date(Calendar.getInstance().getTime().getTime()));
