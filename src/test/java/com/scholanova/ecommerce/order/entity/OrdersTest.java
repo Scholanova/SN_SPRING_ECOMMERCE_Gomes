@@ -1,6 +1,7 @@
 package com.scholanova.ecommerce.order.entity;
 
 import com.scholanova.ecommerce.cart.entity.Cart;
+import com.scholanova.ecommerce.order.exception.OrderException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrdersTest {
 
     @Test
-    public void checkout_ShouldSetTheDateAndTimeOfTodayInTheOrder(){
+    public void checkout_ShouldSetTheDateAndTimeOfTodayInTheOrder() throws OrderException {
         //given
         Cart cart = new Cart();
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
@@ -24,7 +25,8 @@ class OrdersTest {
     }
 
     @Test
-    public void checkout_ShouldSetOrderStatusToPending(){
+    public void checkout_ShouldSetOrderStatusToPending() throws OrderException {
+        //given
         Cart cart = new Cart();
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         Orders order = Orders.createOrder("fr542168", date, cart);
@@ -37,7 +39,15 @@ class OrdersTest {
 
     @Test
     public void checkout_ShouldThrowNotAllowedExceptionIfStatusIsClosed(){
-
+        //given
+        Cart cart = new Cart();
+        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        Orders order = Orders.createOrder("fr542168", date, cart);
+        order.setId((long) 10);
+        //when
+        order.setStatus(OrderStatus.CLOSED);
+        //then
+        assertThrows(OrderException.class,() -> order.checkout());
     }
 
     @Test

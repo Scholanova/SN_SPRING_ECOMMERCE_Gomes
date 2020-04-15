@@ -2,6 +2,7 @@ package com.scholanova.ecommerce.order.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scholanova.ecommerce.cart.entity.Cart;
+import com.scholanova.ecommerce.order.exception.OrderException;
 import com.sun.xml.bind.v2.TODO;
 
 import javax.persistence.*;
@@ -40,9 +41,13 @@ public class Orders {
         return entity;
     }
 
-    public void checkout(){
-        this.setStatus(OrderStatus.PENDING);
-        this.setIssueDate(new Date(Calendar.getInstance().getTime().getTime()));
+    public void checkout() throws OrderException {
+        if(this.getStatus().equals(OrderStatus.CLOSED)){
+            throw new OrderException("Commande cloturé");
+        }else{
+            this.setStatus(OrderStatus.PENDING);
+            this.setIssueDate(new Date(Calendar.getInstance().getTime().getTime()));
+        }
     }
 
     public void getDiscount(){
