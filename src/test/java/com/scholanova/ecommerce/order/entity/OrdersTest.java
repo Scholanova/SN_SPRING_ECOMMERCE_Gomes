@@ -1,21 +1,32 @@
 package com.scholanova.ecommerce.order.entity;
 
+import com.scholanova.ecommerce.cart.entity.Cart;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Disabled
 class OrdersTest {
 
     @Test
     public void checkout_ShouldSetTheDateAndTimeOfTodayInTheOrder(){
-
+        //given
+        Orders order = new Orders();
+        //when
+        order.checkout();
+        //then
+        assertThat(order.getIssueDate().equals(Calendar.getInstance().getTime().getTime()));
     }
 
     @Test
     public void checkout_ShouldSetOrderStatusToPending(){
-
+        Orders order = new Orders();
+        //when
+        order.checkout();
+        //then
+        assertThat(order.getStatus().equals(OrderStatus.PENDING));
     }
 
     @Test
