@@ -1,4 +1,4 @@
-# SN_SPRING_ECOMMERCE
+# SN_SPRING_ECOMMERCE Gomes
 Pratiquer l'écriture d'un code testé unitairement avec Spring
 
 ## Pour commencer
