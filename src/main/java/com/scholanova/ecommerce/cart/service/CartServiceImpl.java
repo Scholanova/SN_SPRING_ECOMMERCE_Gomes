@@ -25,7 +25,6 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public Cart changeProductQuantity(Cart cart, Long productId, int quantity) {
-        //TODO
-        return null;
+        return cart.changeProductQuantity(cart.getCartItemByProductName(productRepository.findById(productId).get().getName()).getProduct(),quantity);
     }
 }
